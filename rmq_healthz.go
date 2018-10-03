@@ -23,6 +23,7 @@ func main() {
 	userName := flag.String("u", "guest", "username")
 	userPass := flag.String("P", "guest", "password")
 	hostName := flag.String("h", "localhost", "host")
+	vhost := flag.String("v", "/", "vhost")
 	port := flag.Int("p", 5672, "port")
 	flag.Parse()
 	if *queueName == "" {
@@ -30,7 +31,7 @@ func main() {
 		flag.Usage()
 		os.Exit(2)
 	}
-	connAddress := "amqp://" + *userName + ":" + *userPass + "@" + *hostName + ":" + strconv.Itoa(*port) + "/"
+	connAddress := "amqp://" + *userName + ":" + *userPass + "@" + *hostName + ":" + strconv.Itoa(*port) + *vhost
 	log.Printf("Connecting to: %s", connAddress)
 
 	conn, err := amqp.Dial(connAddress)
