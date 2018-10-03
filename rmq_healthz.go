@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/streadway/amqp"
 )
@@ -22,7 +23,7 @@ func main() {
 	userName := flag.String("u", "guest", "username")
 	userPass := flag.String("P", "guest", "password")
 	hostName := flag.String("h", "localhost", "host")
-	port := flag.Int("p", 5672, "username")
+	port := flag.Int("p", 5672, "port")
 	flag.Parse()
 	if *queueName == "" {
 		fmt.Println("Please specify a queue")
@@ -62,6 +63,8 @@ func main() {
 		})
 	log.Printf("Sent: %s", body)
 	failOnError(err, "Failed to publish a message")
+
+	time.Sleep(1 * time.Second)
 
 	msgs, err := ch.Consume(
 		q.Name, // queue
