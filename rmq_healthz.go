@@ -32,7 +32,7 @@ func main() {
 		os.Exit(2)
 	}
 	connAddress := "amqp://" + *userName + ":" + *userPass + "@" + *hostName + ":" + strconv.Itoa(*port) + *vhost
-	log.Printf("Connecting to: %s with queue name: %s", connAddress, queueName)
+	log.Printf("Connecting to: %s with queue name: %s", connAddress, *queueName)
 
 	conn, err := amqp.Dial(connAddress)
 	failOnError(err, "Failed to connect to RabbitMQ")
