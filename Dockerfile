@@ -1,8 +1,8 @@
-FROM golang:1.10
+FROM golang:1.14
 WORKDIR /app
 COPY ./rmq_healthz.go .
 RUN go get github.com/streadway/amqp && go build rmq_healthz.go
 
-FROM rabbitmq:3.8.3-management
+FROM rabbitmq:3.8.5-management
 COPY --from=0 /app/rmq_healthz /
 
